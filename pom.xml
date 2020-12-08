@@ -12,6 +12,7 @@
 
     <modules>
         <module>java8-forEach-example</module>
+        <module>java8-stream-example</module>
     </modules>
 
     <properties>

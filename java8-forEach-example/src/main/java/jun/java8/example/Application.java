@@ -1,6 +1,5 @@
 package jun.java8.example;
 
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
 
 public class Application {
 
@@ -22,19 +22,21 @@ public class Application {
      * <p>
      * The forEach() method has been added in following places:
      * <p>
-     * - Iterable interface – This makes Iterable.forEach() method available to all collection classes except Map
-     * - Map interface – This makes forEach() operation available to all map classes.
-     * - Stream interface – This makes forEach() and forEachOrdered() operations available to all types of stream.
+     * <ul>
+     *     <li>Iterable interface – This makes Iterable.forEach() method available to all collection classes except Map</li>
+     *     <li>Map interface – This makes forEach() operation available to all map classes.</li>
+     *     <li>Stream interface – This makes forEach() and forEachOrdered() operations available to all types of stream.</li>
+     * </ul>
      */
     public static void main(String[] args) {
-        iterable_forEach();
-        map_forEach();
-        stream_forEach();
-        stream_forEachOrdered();
+        forEach_iterable();
+        forEach_map();
+        forEach_stream();
+        forEachOrdered_stream();
     }
 
-    private static void iterable_forEach() {
-        logger.info("iterable_forEach: -------------------");
+    private static void forEach_iterable() {
+        logger.info("forEach_iterable: -------------------");
 
         List<String> names = Arrays.asList("Alex", "Brian", "Charles");
 
@@ -56,12 +58,10 @@ public class Application {
             logger.info(s);
         };
         names.forEach(consumer2);
-
-        logger.info("iterable_forEach: -------------------");
     }
 
-    private static void map_forEach() {
-        logger.info("map_forEach: -------------------");
+    private static void forEach_map() {
+        logger.info("forEach_map: -------------------");
 
         Map<String, String> map = new HashMap<>();
 
@@ -87,13 +87,10 @@ public class Application {
             logger.info("k:{} v:{}", k, v);
         };
         map.forEach(consumer2);
-
-        logger.info("map_forEach: -------------------");
     }
 
-    private static void stream_forEach() {
-
-        logger.info("stream_forEach: -------------------");
+    private static void forEach_stream() {
+        logger.info("forEach_stream: -------------------");
 
         // In Stream, forEach() is terminal operation.
 
@@ -107,12 +104,11 @@ public class Application {
                 filter(n -> n % 2 == 0).
                 forEach(logger::info);
 
-        logger.info("stream_forEach: -------------------");
     }
 
-    private static void stream_forEachOrdered() {
+    private static void forEachOrdered_stream() {
 
-        logger.info("stream_forEachOrdered: -------------------");
+        logger.info("forEachOrdered_stream: -------------------");
 
         // In Stream, forEachOrdered() is terminal operation.
 
@@ -128,7 +124,5 @@ public class Application {
                 filter(n -> n % 2 == 0).
                 parallel().
                 forEachOrdered(logger::info);
-
-        logger.info("stream_forEachOrdered: -------------------");
     }
 }
