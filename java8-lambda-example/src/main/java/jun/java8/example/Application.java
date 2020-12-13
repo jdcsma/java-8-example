@@ -48,8 +48,8 @@ public class Application {
      * called <b>Single Abstract Method interfaces (SAM Interfaces)</b>.
      * </p>
      * <p>
-     * In Java 8, functional interfaces <b>can be represented using lambda expressions</b>,
-     * method reference and constructor references as well.
+     * In Java 8, functional interfaces <b>can be represented using lambda expressions,
+     * method reference and constructor references as well</b>.
      * </p>
      * <p>
      * Java 8 introduces an annotation i.e. <b>@FunctionalInterface</b> too, which can be
@@ -59,7 +59,7 @@ public class Application {
      * <ul>
      *     <li>
      *         Only one abstract method is allowed in any functional interface.
-     *         Second abstract method is not not permitted in a functional interface.
+     *         Second abstract method is not permitted in a functional interface.
      *         If we remove @FunctionInterface annotation then we are allowed to add
      *         another abstract method, but it will make the interface non-functional
      *         interface.
