@@ -15,7 +15,11 @@
         <module>java8-stream-example</module>
         <module>java8-boxed-stream-example</module>
         <module>java8-lambda-example</module>
-        <module>java8-method-reference</module>
+        <module>java8-method-reference-example</module>
+        <module>java8-default-method-example</module>
+        <module>java8-optional-example</module>
+        <module>java8-predicate-example</module>
+        <module>java8-regex-example</module>
     </modules>
 
     <properties>

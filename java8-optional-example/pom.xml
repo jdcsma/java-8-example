@@ -10,8 +10,8 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>java8-method-reference</artifactId>
-    <name>java8-method-reference</name>
+    <artifactId>java8-optional-example</artifactId>
+    <name>java8-optional-example</name>
     <packaging>jar</packaging>
 
     <dependencies>
