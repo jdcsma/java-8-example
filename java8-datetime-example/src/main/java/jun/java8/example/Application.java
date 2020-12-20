@@ -2,10 +2,13 @@ package jun.java8.example;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import sun.util.locale.provider.LocaleServiceProviderPool;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 
 public class Application {
 
@@ -30,6 +33,9 @@ public class Application {
         datetime_localDateTime();
         datetime_localDataTime_with_Zone();
         datetime_instant();
+        datetime_duration();
+        datetime_period();
+        datetime_utility();
         datetime_clock();
     }
 
@@ -108,7 +114,7 @@ public class Application {
     /**
      * A date-time with an offset from UTC/Greenwich in the ISO-8601 calendar system,
      * such as 2007-12-03T10:15:30+01:00.
-     *
+     * <p>
      * If you want to use the date functionality with zone information,
      * then Lambda provide you extra 3 classes similar to above one i.e.
      * OffsetDate, OffsetTime and OffsetDateTime. Timezone offset can be
@@ -134,7 +140,7 @@ public class Application {
      * An instantaneous point on the time-line.
      * This class models a single instantaneous point on the time-line.
      * This might be used to record event time-stamps in the application.
-     *
+     * <p>
      * For representing the specific timestamp at any moment, the class needs to be used is Instant.
      * The Instant class represents an instant in time to an accuracy of nanoseconds. Operations on
      * can Instant include comparison to another Instant and adding or subtracting a duration.
@@ -159,26 +165,80 @@ public class Application {
                 .toFormatter();
         logger.info("Instant to text:{}", formatter.format(
                 LocalDateTime.ofInstant(Instant.now(), ZoneId.systemDefault())));
+
+        logger.info("Instant plus 1 day:{}", Instant.now().plus(1, ChronoUnit.DAYS));
+        logger.info("Instant plus 1 hour:{}", Instant.now().plus(1, ChronoUnit.HOURS));
+        logger.info("Instant plus 1 minute:{}", Instant.now().plus(1, ChronoUnit.MINUTES));
+        logger.info("Instant plus 1 second:{}", Instant.now().plus(1, ChronoUnit.SECONDS));
+        logger.info("Instant plus 1 millisecond:{}", Instant.now().plus(1, ChronoUnit.MILLIS));
+        logger.info("Instant plus 1 microsecond:{}", Instant.now().plus(1, ChronoUnit.MICROS));
+        logger.info("Instant plus 1 nanosecond:{}", Instant.now().plus(1, ChronoUnit.NANOS));
     }
 
     /**
-     * A time-based amount of time, such as '34.5 seconds'.
-     *
+     * A time-based amount of time,
+     * such as '34.5 seconds'.
+     * <p>
      * Duration class is a whole new concept brought first time in java language.
      * It represents the time difference between two time stamps.
      */
     private static void datetime_duration() {
         logger.info("duration: -------------------");
+        logger.info("Duration 1 day:{}", Duration.ofDays(1));
+        logger.info("Duration 1 hour:{}", Duration.ofHours(1));
+        logger.info("Duration 1 minute:{}", Duration.ofMinutes(1));
+        logger.info("Duration 1 second:{}", Duration.ofSeconds(1));
+        logger.info("Duration 1 millisecond:{}", Duration.ofMillis(1));
+        logger.info("Duration 1 microsecond:{}", Duration.ofNanos(1000));
+        logger.info("Duration 1 nanosecond:{}", Duration.ofNanos(1).toString());
+
+        logger.info("Duration 1 day 1 hour 1 minute 1 second 1 millisecond 1 microsecond 1 nanosecond:{}",
+                Duration.ZERO
+                        .plus(1, ChronoUnit.DAYS)
+                        .plus(1, ChronoUnit.HOURS)
+                        .plus(1, ChronoUnit.MINUTES)
+                        .plus(1, ChronoUnit.SECONDS)
+                        .plus(1, ChronoUnit.MILLIS)
+                        .plus(1, ChronoUnit.MICROS)
+                        .plus(1, ChronoUnit.NANOS));
+
+        logger.info("between now to now + 1 minute:{}",
+                Duration.between(Instant.now(), Instant.now().plus(Duration.ofMinutes(1))));
     }
 
     /**
      * A date-based amount of time in the ISO-8601 calendar system,
      * such as '2 years, 3 months and 4 days'.
-     *
+     * <p>
      * To interact with human, you need to get bigger durations which are presented with Period class.
      */
     private static void datetime_period() {
         logger.info("period: -------------------");
+        logger.info("Period 1 year:{}", Period.ofYears(1));
+        logger.info("Period 1 month:{}", Period.ofMonths(1));
+        logger.info("Period 1 week:{}", Period.ofWeeks(1));
+        logger.info("Period 1 day:{}", Period.ofDays(1));
+
+        logger.info("Period 1 year 1 month 1 day:{}",
+                Period.ZERO.plusYears(1).plusMonths(1).plusDays(1));
+    }
+
+    private static void datetime_utility() {
+        logger.info("utility: -------------------");
+        logger.info("monday:{} value:{}", DayOfWeek.MONDAY, DayOfWeek.MONDAY.getValue());
+        logger.info("tuesday:{} value:{}", DayOfWeek.TUESDAY, DayOfWeek.TUESDAY.getValue());
+        logger.info("wednesday:{} value:{}", DayOfWeek.WEDNESDAY, DayOfWeek.WEDNESDAY.getValue());
+        logger.info("thursday:{} value:{}", DayOfWeek.THURSDAY, DayOfWeek.THURSDAY.getValue());
+        logger.info("friday:{} value:{}", DayOfWeek.FRIDAY, DayOfWeek.FRIDAY.getValue());
+        logger.info("saturday:{} value:{}", DayOfWeek.SATURDAY, DayOfWeek.SATURDAY.getValue());
+        logger.info("sunday:{} value:{}", DayOfWeek.SUNDAY, DayOfWeek.SUNDAY.getValue());
+
+        LocalDate now = LocalDate.now();
+        logger.info("when was monday in current week:{}", now.with(DayOfWeek.MONDAY));
+        logger.info("last day of year:{}", now.with(TemporalAdjusters.lastDayOfYear()));
+        logger.info("last day of month:{}", now.with(TemporalAdjusters.lastDayOfMonth()));
+        logger.info("last monday in month:{}", now.with(TemporalAdjusters.lastInMonth(DayOfWeek.MONDAY)));
+        logger.info("next monday at current date:{}", now.with(TemporalAdjusters.next(DayOfWeek.MONDAY)));
     }
 
     /**
