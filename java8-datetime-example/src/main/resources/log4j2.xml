@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <Properties>
+        <Property name="stdoutPatternLayout">
+            %highlight{%d{HH:mm:ss.SSS}: %msg%n}
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${stdoutPatternLayout}"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="warn">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+        <Logger name="jun.java8.example" level="debug" additivity="false">
+            <AppenderRef ref="STDOUT"/>
+        </Logger>
+    </Loggers>
+</Configuration>
